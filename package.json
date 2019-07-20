@@ -1,14 +1,14 @@
 {
-  "name": "dsteem",
+  "name": "dsmoke",
   "version": "0.11.2",
-  "description": "Steem blockchain RPC client library",
-  "author": "Johan Nordberg",
-  "license": "BSD-3-Clause",
+  "description": "Smoke blockchain RPC client library",
+  "author": "@herbncrypto",
+  "license": "MIT",
   "main": "./lib/index-node",
   "typings": "./lib/index",
   "browser": {
-    "./lib/index-node": "./dist/dsteem.js",
-    "./src/index-node": "./dist/dsteem.js",
+    "./lib/index-node": "./dist/dsmoke.js",
+    "./src/index-node": "./dist/dsmoke.js",
     "./src/version": "./lib/version.js"
   },
   "files": [
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jnordberg/dsteem"
+    "url": "https://github.com/herbncrypto/dsmoke"
   },
   "scripts": {
     "test": "make ci-test",
@@ -27,8 +27,8 @@
     "blockchain",
     "client",
     "rpc",
-    "steem",
-    "steemit"
+    "smoke",
+    "dsmoke"
   ],
   "dependencies": {
     "bs58": "^4.0.1",
