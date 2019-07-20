@@ -1,12 +1,12 @@
-declare module 'dsteem/version' {
+declare module 'dsmoke/version' {
 	 const _default: string;
 	export default _default;
 
 }
-declare module 'dsteem/steem/asset' {
+declare module 'dsmoke/smoke/asset' {
 	/**
-	 * @file Steem asset type definitions and helpers.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke asset type definitions and helpers.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -46,15 +46,15 @@ declare module 'dsteem/steem/asset' {
 	/**
 	 * Asset symbol string.
 	 */
-	export type AssetSymbol = 'STEEM' | 'VESTS' | 'SBD' | 'TESTS' | 'TBD';
+	export type AssetSymbol = 'SMOKE' | 'VESTS' | 'SBD' | 'TESTS' | 'TBD';
 	/**
-	 * Class representing a steem asset, e.g. `1.000 STEEM` or `12.112233 VESTS`.
+	 * Class representing a smoke asset, e.g. `1.000 STEEM` or `12.112233 VESTS`.
 	 */
 	export class Asset {
 	    readonly amount: number;
 	    readonly symbol: AssetSymbol;
 	    /**
-	     * Create a new Asset instance from a string, e.g. `42.000 STEEM`.
+	     * Create a new Asset instance from a string, e.g. `42.000 SMOKE`.
 	     */
 	    static fromString(string: string, expectedSymbol?: AssetSymbol): Asset;
 	    /**
@@ -77,7 +77,7 @@ declare module 'dsteem/steem/asset' {
 	     */
 	    getPrecision(): number;
 	    /**
-	     * Return a string representation of this asset, e.g. `42.000 STEEM`.
+	     * Return a string representation of this asset, e.g. `42.000 SMOKE`.
 	     */
 	    toString(): string;
 	    /**
@@ -144,10 +144,10 @@ declare module 'dsteem/steem/asset' {
 	}
 
 }
-declare module 'dsteem/steem/account' {
+declare module 'dsmoke/smoke/account' {
 	/**
-	 * @file Steem account type definitions.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke account type definitions.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -179,8 +179,8 @@ declare module 'dsteem/steem/account' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { PublicKey } from 'dsteem/crypto';
-	import { Asset } from 'dsteem/steem/asset';
+	import { PublicKey } from 'dsmoke/crypto';
+	import { Asset } from 'dsmoke/steem/asset';
 	export interface AuthorityType {
 	    weight_threshold: number;
 	    account_auths: Array<[string, number]>;
@@ -264,7 +264,7 @@ declare module 'dsteem/steem/account' {
 	}
 	export interface ExtendedAccount extends Account {
 	    /**
-	     * Convert vesting_shares to vesting steem.
+	     * Convert vesting_shares to vesting smoke.
 	     */
 	    vesting_balance: string | Asset;
 	    reputation: string | number;
@@ -291,11 +291,11 @@ declare module 'dsteem/steem/account' {
 	}
 
 }
-declare module 'dsteem/steem/misc' {
+declare module 'dsmoke/smoke/misc' {
 	/// <reference types="node" />
 	/**
-	 * @file Misc steem type definitions.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Misc smoke type definitions.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -327,8 +327,8 @@ declare module 'dsteem/steem/misc' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { Account } from 'dsteem/steem/account';
-	import { Asset, Price } from 'dsteem/steem/asset';
+	import { Account } from 'dsmoke/smoke/account';
+	import { Asset, Price } from 'dsmoke/smoke/asset';
 	/**
 	 * Large number that may be unsafe to represent natively in JavaScript.
 	 */
@@ -479,7 +479,7 @@ declare module 'dsteem/steem/misc' {
 	    /**
 	     * The maximum bandwidth the blockchain can support is:
 	     *
-	     *    max_bandwidth = maximum_block_size * STEEMIT_BANDWIDTH_AVERAGE_WINDOW_SECONDS / STEEMIT_BLOCK_INTERVAL
+	     *    max_bandwidth = maximum_block_size * SMOKE_BANDWIDTH_AVERAGE_WINDOW_SECONDS / SMOKE_BLOCK_INTERVAL
 	     *
 	     * The maximum virtual bandwidth is:
 	     *
@@ -488,7 +488,7 @@ declare module 'dsteem/steem/misc' {
 	    max_virtual_bandwidth: Bignum;
 	    /**
 	     * Any time average_block_size <= 50% maximum_block_size this value grows by 1 until it
-	     * reaches STEEMIT_MAX_RESERVE_RATIO.  Any time average_block_size is greater than
+	     * reaches SMOKE_MAX_RESERVE_RATIO.  Any time average_block_size is greater than
 	     * 50% it falls by 1%.  Upward adjustments happen once per round, downward adjustments
 	     * happen every block.
 	     */
@@ -510,10 +510,10 @@ declare module 'dsteem/steem/misc' {
 	export function getVests(account: Account, subtract_delegated?: boolean, add_received?: boolean): number;
 
 }
-declare module 'dsteem/steem/serializer' {
+declare module 'dsmoke/smoke/serializer' {
 	/**
-	 * @file Steem protocol serialization.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke protocol serialization.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -547,10 +547,10 @@ declare module 'dsteem/steem/serializer' {
 	 */
 	/// <reference types="node" />
 	import * as ByteBuffer from 'bytebuffer';
-	import { PublicKey } from 'dsteem/crypto';
-	import { Asset } from 'dsteem/steem/asset';
-	import { HexBuffer } from 'dsteem/steem/misc';
-	import { Operation } from 'dsteem/steem/operation';
+	import { PublicKey } from 'dsmoke/crypto';
+	import { Asset } from 'dsmoke/smoke/asset';
+	import { HexBuffer } from 'dsmoke/smoke/misc';
+	import { Operation } from 'dsmoke/smoke/operation';
 	export type Serializer = (buffer: ByteBuffer, data: any) => void;
 	export const Types: {
 	    Array: (itemSerializer: Serializer) => (buffer: ByteBuffer, data: any[]) => void;
@@ -588,10 +588,10 @@ declare module 'dsteem/steem/serializer' {
 	};
 
 }
-declare module 'dsteem/utils' {
+declare module 'dsmoke/utils' {
 	/**
 	 * @file Misc utility functions.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -645,9 +645,9 @@ declare module 'dsteem/utils' {
 	 * Fetch API wrapper that retries until timeout is reached.
 	 */
 	export function retryingFetch(url: string, opts: any, timeout: number, backoff: (tries: number) => number, fetchTimeout?: (tries: number) => number): Promise<any>;
-	import { PublicKey } from 'dsteem/crypto';
-	import { Asset, PriceType } from 'dsteem/steem/asset';
-	import { WitnessSetPropertiesOperation } from 'dsteem/steem/operation';
+	import { PublicKey } from 'dsmoke/crypto';
+	import { Asset, PriceType } from 'dsmoke/smoke/asset';
+	import { WitnessSetPropertiesOperation } from 'dsmoke/smoke/operation';
 	export interface WitnessProps {
 	    account_creation_fee?: string | Asset;
 	    account_subsidy_budget?: number;
@@ -662,10 +662,10 @@ declare module 'dsteem/utils' {
 	export function buildWitnessUpdateOp(owner: string, props: WitnessProps): WitnessSetPropertiesOperation;
 
 }
-declare module 'dsteem/crypto' {
+declare module 'dsmoke/crypto' {
 	/**
-	 * @file Steem crypto helpers.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke crypto helpers.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -698,7 +698,7 @@ declare module 'dsteem/crypto' {
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
 	/// <reference types="node" />
-	import { SignedTransaction, Transaction } from 'dsteem/steem/transaction';
+	import { SignedTransaction, Transaction } from 'dsmoke/smoke/transaction';
 	/**
 	 * Network id used in WIF-encoding.
 	 */
@@ -811,10 +811,10 @@ declare module 'dsteem/crypto' {
 	export {};
 
 }
-declare module 'dsteem/steem/comment' {
+declare module 'dsmoke/smoke/comment' {
 	/**
-	 * @file Steem type definitions related to comments and posting.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke type definitions related to comments and posting.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -846,7 +846,7 @@ declare module 'dsteem/steem/comment' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { Asset } from 'dsteem/steem/asset';
+	import { Asset } from 'dsmoke/smoke/asset';
 	export interface Comment {
 	    id: number;
 	    category: string;
@@ -906,10 +906,10 @@ declare module 'dsteem/steem/comment' {
 	}
 
 }
-declare module 'dsteem/steem/operation' {
+declare module 'dsmoke/smoke/operation' {
 	/**
-	 * @file Steem operation type definitions.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke operation type definitions.
+	 * @author @herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -942,11 +942,11 @@ declare module 'dsteem/steem/operation' {
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
 	/// <reference types="node" />
-	import { PublicKey } from 'dsteem/crypto';
-	import { AuthorityType } from 'dsteem/steem/account';
-	import { Asset, PriceType } from 'dsteem/steem/asset';
-	import { SignedBlockHeader } from 'dsteem/steem/block';
-	import { BeneficiaryRoute } from 'dsteem/steem/comment';
+	import { PublicKey } from 'dsmoke/crypto';
+	import { AuthorityType } from 'dsmoke/smoke/account';
+	import { Asset, PriceType } from 'dsmoke/smoke/asset';
+	import { SignedBlockHeader } from 'dsmoke/smoke/block';
+	import { BeneficiaryRoute } from 'dsmoke/smoke/comment';
 	import { ChainProperties, HexBuffer } from 'dsteem/steem/misc';
 	/**
 	 * Operation name.
@@ -1452,14 +1452,14 @@ declare module 'dsteem/steem/operation' {
 	/**
 	 * This operation is used to report a miner who signs two blocks
 	 * at the same time. To be valid, the violation must be reported within
-	 * STEEMIT_MAX_WITNESSES blocks of the head block (1 round) and the
+	 * SMOKE_MAX_WITNESSES blocks of the head block (1 round) and the
 	 * producer must be in the ACTIVE witness set.
 	 *
 	 * Users not in the ACTIVE witness set should not have to worry about their
 	 * key getting compromised and being used to produced multiple blocks so
 	 * the attacker can report it and steel their vesting steem.
 	 *
-	 * The result of the operation is to transfer the full VESTING STEEM balance
+	 * The result of the operation is to transfer the full VESTING SMOKE balance
 	 * of the block producer to the reporter.
 	 */
 	export interface ReportOverProductionOperation extends Operation {
@@ -1604,7 +1604,7 @@ declare module 'dsteem/steem/operation' {
 	    };
 	}
 	/**
-	 * This operation converts STEEM into VFS (Vesting Fund Shares) at
+	 * This operation converts SMOKE into VFS (Vesting Fund Shares) at
 	 * the current exchange rate. With this operation it is possible to
 	 * give another account vesting shares so that faucets can
 	 * pre-fund new accounts with vesting shares.
@@ -1616,7 +1616,7 @@ declare module 'dsteem/steem/operation' {
 	        from: string;
 	        to: string;
 	        /**
-	         * Amount to power up, must be STEEM.
+	         * Amount to power up, must be SMOKE.
 	         */
 	        amount: string | Asset;
 	    };
@@ -1628,7 +1628,7 @@ declare module 'dsteem/steem/operation' {
 	        author: string;
 	        permlink: string;
 	        /**
-	         * Voting weight, 100% = 10000 (STEEMIT_100_PERCENT).
+	         * Voting weight, 100% = 10000 (SMOKE_100_PERCENT).
 	         */
 	        weight: number;
 	    };
@@ -1695,10 +1695,10 @@ declare module 'dsteem/steem/operation' {
 	}
 
 }
-declare module 'dsteem/steem/transaction' {
+declare module 'dsmoke/smoke/transaction' {
 	/**
-	 * @file Steem transaction type definitions.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke transaction type definitions.
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -1730,7 +1730,7 @@ declare module 'dsteem/steem/transaction' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { Operation } from 'dsteem/steem/operation';
+	import { Operation } from 'dsmoke/smoke/operation';
 	export interface Transaction {
 	    ref_block_num: number;
 	    ref_block_prefix: number;
@@ -1749,10 +1749,10 @@ declare module 'dsteem/steem/transaction' {
 	}
 
 }
-declare module 'dsteem/steem/block' {
+declare module 'dsmoke/smoke/block' {
 	/**
-	 * @file Steem block type definitions.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke block type definitions.
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -1784,7 +1784,7 @@ declare module 'dsteem/steem/block' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { Transaction } from 'dsteem/steem/transaction';
+	import { Transaction } from 'dsmoke/smoke/transaction';
 	/**
 	 * Unsigned block header.
 	 */
@@ -1812,10 +1812,10 @@ declare module 'dsteem/steem/block' {
 	}
 
 }
-declare module 'dsteem/helpers/blockchain' {
+declare module 'dsmoke/helpers/blockchain' {
 	/**
-	 * @file Steem blockchain helpers.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file Smoke blockchain helpers.
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -1848,9 +1848,9 @@ declare module 'dsteem/helpers/blockchain' {
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
 	/// <reference types="node" />
-	import { Client } from 'dsteem/client';
-	import { BlockHeader, SignedBlock } from 'dsteem/steem/block';
-	import { AppliedOperation } from 'dsteem/steem/operation';
+	import { Client } from 'dsmoke/client';
+	import { BlockHeader, SignedBlock } from 'dsmoke/steem/block';
+	import { AppliedOperation } from 'dsmoke/steem/operation';
 	export enum BlockchainMode {
 	    /**
 	     * Only get irreversible blocks.
@@ -1919,10 +1919,10 @@ declare module 'dsteem/helpers/blockchain' {
 	}
 
 }
-declare module 'dsteem/helpers/broadcast' {
+declare module 'dsmoke/helpers/broadcast' {
 	/**
 	 * @file Broadcast API helpers.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -1954,12 +1954,12 @@ declare module 'dsteem/helpers/broadcast' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { Client } from 'dsteem/client';
-	import { PrivateKey, PublicKey } from 'dsteem/crypto';
-	import { AuthorityType } from 'dsteem/steem/account';
-	import { Asset } from 'dsteem/steem/asset';
+	import { Client } from 'dsmoke/client';
+	import { PrivateKey, PublicKey } from 'dsmoke/crypto';
+	import { AuthorityType } from 'dsmoke/smoke/account';
+	import { Asset } from 'dsmoke/smoke/asset';
 	import { AccountUpdateOperation, CommentOperation, CommentOptionsOperation, CustomJsonOperation, DelegateVestingSharesOperation, Operation, TransferOperation, VoteOperation } from 'dsteem/steem/operation';
-	import { SignedTransaction, Transaction, TransactionConfirmation } from 'dsteem/steem/transaction';
+	import { SignedTransaction, Transaction, TransactionConfirmation } from 'dsmoke/smoke/transaction';
 	export interface CreateAccountOptions {
 	    /**
 	     * Username for the new account.
@@ -2087,7 +2087,7 @@ declare module 'dsteem/helpers/broadcast' {
 	}
 
 }
-declare module 'dsteem/helpers/database' {
+declare module 'dsmoke/helpers/database' {
 	/**
 	 * @file Database API helpers.
 	 * @author Johan Nordberg <code@johan-nordberg.com>
@@ -2122,15 +2122,15 @@ declare module 'dsteem/helpers/database' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import { Client } from 'dsteem/client';
-	import { ExtendedAccount } from 'dsteem/steem/account';
-	import { Price } from 'dsteem/steem/asset';
-	import { BlockHeader, SignedBlock } from 'dsteem/steem/block';
-	import { Discussion } from 'dsteem/steem/comment';
-	import { DynamicGlobalProperties } from 'dsteem/steem/misc';
-	import { ChainProperties, VestingDelegation } from 'dsteem/steem/misc';
-	import { AppliedOperation } from 'dsteem/steem/operation';
-	import { SignedTransaction, TransactionConfirmation } from 'dsteem/steem/transaction';
+	import { Client } from 'dsmoke/client';
+	import { ExtendedAccount } from 'dsmoke/smoke/account';
+	import { Price } from 'dsmoke/smoke/asset';
+	import { BlockHeader, SignedBlock } from 'dsmoke/smoke/block';
+	import { Discussion } from 'dsmoke/smoke/comment';
+	import { DynamicGlobalProperties } from 'dsmoke/smoke/misc';
+	import { ChainProperties, VestingDelegation } from 'dsmoke/smoke/misc';
+	import { AppliedOperation } from 'dsmoke/smoke/operation';
+	import { SignedTransaction, TransactionConfirmation } from 'dsmoke/smoke/transaction';
 	/**
 	 * Possible categories for `get_discussions_by_*`.
 	 */
@@ -2242,9 +2242,9 @@ declare module 'dsteem/helpers/database' {
 	}
 
 }
-declare module 'dsteem/steem/rc' {
-	import { SMTAsset } from 'dsteem/steem/asset';
-	import { Bignum } from 'dsteem/steem/misc';
+declare module 'dsmoke/smoke/rc' {
+	import { SMTAsset } from 'dsmoke/smoke/asset';
+	import { Bignum } from 'dsmoke/smoke/misc';
 	export interface RCParams {
 	    resource_history_bytes: Resource;
 	    resource_new_accounts: Resource;
@@ -2298,10 +2298,10 @@ declare module 'dsteem/steem/rc' {
 	}
 
 }
-declare module 'dsteem/helpers/rc' {
-	import { Client } from 'dsteem/client';
-	import { Account } from 'dsteem/steem/account';
-	import { Manabar, RCAccount, RCParams, RCPool } from 'dsteem/steem/rc';
+declare module 'dsmoke/helpers/rc' {
+	import { Client } from 'dsmoke/client';
+	import { Account } from 'dsmoke/smoke/account';
+	import { Manabar, RCAccount, RCParams, RCPool } from 'dsmoke/smoke/rc';
 	export class RCAPI {
 	    readonly client: Client;
 	    constructor(client: Client);
@@ -2344,7 +2344,7 @@ declare module 'dsteem/helpers/rc' {
 	}
 
 }
-declare module 'dsteem/client' {
+declare module 'dsmoke/client' {
 	/**
 	 * @file Steem RPC client implementation.
 	 * @author Johan Nordberg <code@johan-nordberg.com>
@@ -2380,10 +2380,10 @@ declare module 'dsteem/client' {
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
 	/// <reference types="node" />
-	import { Blockchain } from 'dsteem/helpers/blockchain';
-	import { BroadcastAPI } from 'dsteem/helpers/broadcast';
-	import { DatabaseAPI } from 'dsteem/helpers/database';
-	import { RCAPI } from 'dsteem/helpers/rc';
+	import { Blockchain } from 'dsmoke/helpers/blockchain';
+	import { BroadcastAPI } from 'dsmoke/helpers/broadcast';
+	import { DatabaseAPI } from 'dsmoke/helpers/database';
+	import { RCAPI } from 'dsmoke/helpers/rc';
 	/**
 	 * Library version.
 	 */
@@ -2395,20 +2395,20 @@ declare module 'dsteem/client' {
 	/**
 	 * Main steem network address prefix.
 	 */
-	export const DEFAULT_ADDRESS_PREFIX = "STM";
+	export const DEFAULT_ADDRESS_PREFIX = "SMOKE";
 	/**
 	 * RPC Client options
 	 * ------------------
 	 */
 	export interface ClientOptions {
 	    /**
-	     * Steem chain id. Defaults to main steem network:
+	     * Smoke chain id. Defaults to main smoke network:
 	     * `0000000000000000000000000000000000000000000000000000000000000000`
 	     */
 	    chainId?: string;
 	    /**
-	     * Steem address prefix. Defaults to main steem network:
-	     * `STM`
+	     * Smoke address prefix. Defaults to main smoke network:
+	     * `SMOKE`
 	     */
 	    addressPrefix?: string;
 	    /**
@@ -2445,7 +2445,7 @@ declare module 'dsteem/client' {
 	     */
 	    readonly options: ClientOptions;
 	    /**
-	     * Address to Steem RPC server, *read-only*.
+	     * Address to Smoke RPC server, *read-only*.
 	     */
 	    readonly address: string;
 	    /**
@@ -2475,7 +2475,7 @@ declare module 'dsteem/client' {
 	    private timeout;
 	    private backoff;
 	    /**
-	     * @param address The address to the Steem RPC server, e.g. `https://api.steemit.com`.
+	     * @param address The address to the Smoke RPC server, e.g. `https://api.smoke.io`.
 	     * @param options Client options.
 	     */
 	    constructor(address: string, options?: ClientOptions);
@@ -2491,10 +2491,10 @@ declare module 'dsteem/client' {
 	}
 
 }
-declare module 'dsteem' {
+declare module 'dsmoke' {
 	/**
-	 * @file dsteem exports.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file dsmoke exports.
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -2526,27 +2526,27 @@ declare module 'dsteem' {
 	 * You acknowledge that this software is not designed, licensed or intended for use
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
-	import * as utils from 'dsteem/utils';
+	import * as utils from 'dsmoke/utils';
 	export { utils };
-	export * from 'dsteem/helpers/blockchain';
-	export * from 'dsteem/helpers/database';
-	export * from 'dsteem/helpers/rc';
-	export * from 'dsteem/steem/account';
-	export * from 'dsteem/steem/asset';
-	export * from 'dsteem/steem/block';
-	export * from 'dsteem/steem/comment';
-	export * from 'dsteem/steem/misc';
-	export * from 'dsteem/steem/operation';
-	export * from 'dsteem/steem/serializer';
-	export * from 'dsteem/steem/transaction';
-	export * from 'dsteem/client';
-	export * from 'dsteem/crypto';
+	export * from 'dsmoke/helpers/blockchain';
+	export * from 'dsmoke/helpers/database';
+	export * from 'dsmoke/helpers/rc';
+	export * from 'dsmoke/smoke/account';
+	export * from 'dsmoke/smoke/asset';
+	export * from 'dsmoke/smoke/block';
+	export * from 'dsmoke/smoke/comment';
+	export * from 'dsmoke/smoke/misc';
+	export * from 'dsmoke/smoke/operation';
+	export * from 'dsmoke/smoke/serializer';
+	export * from 'dsmoke/smoke/transaction';
+	export * from 'dsmoke/client';
+	export * from 'dsmoke/crypto';
 
 }
-declare module 'dsteem/index-browser' {
+declare module 'dsmoke/index-browser' {
 	/**
-	 * @file dsteem entry point for browsers.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file dsmoke entry point for browsers.
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -2586,13 +2586,13 @@ declare module 'dsteem/index-browser' {
 	import 'core-js/fn/array/from';
 	import 'core-js/modules/es7.symbol.async-iterator';
 	import 'whatwg-fetch';
-	export * from 'dsteem';
+	export * from 'dsmoke';
 
 }
-declare module 'dsteem/index-node' {
+declare module 'dsmoke/index-node' {
 	/**
-	 * @file dsteem entry point for node.js.
-	 * @author Johan Nordberg <code@johan-nordberg.com>
+	 * @file dsmoke entry point for node.js.
+	 * @author herbncrypto
 	 * @license
 	 * Copyright (c) 2017 Johan Nordberg. All Rights Reserved.
 	 *
@@ -2625,6 +2625,6 @@ declare module 'dsteem/index-node' {
 	 * in the design, construction, operation or maintenance of any military facility.
 	 */
 	import 'core-js/modules/es7.symbol.async-iterator';
-	export * from 'dsteem';
+	export * from 'dsmoke';
 
 }
