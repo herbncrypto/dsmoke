@@ -20,7 +20,7 @@ lib: $(SRC_FILES) node_modules
 
 dist/%.js: lib
 	browserify $(filter-out $<,$^) --debug --full-paths \
-		--standalone dsteem --plugin tsify \
+		--standalone dsmoke --plugin tsify \
 		--transform [ babelify --extensions .ts ] \
 		| derequire > $@
 	uglifyjs $@ \
@@ -31,13 +31,13 @@ dist/%.js: lib
 dist/dsteem.js: src/index-browser.ts
 
 dist/dsteem.d.ts: $(SRC_FILES) node_modules
-	dts-generator --name dsteem --project . --out dist/dsteem.d.ts
-	sed -e "s@'dsteem/index'@'dsteem'@g" -i '' dist/dsteem.d.ts
+	dts-generator --name dsmoke --project . --out dist/dsmoke.d.ts
+	sed -e "s@'dsmoke/index'@'dsmoke'@g" -i '' dist/dsmoke.d.ts
 
 dist/%.gz: dist/dsteem.js
 	gzip -9 -f -c $(basename $@) > $(basename $@).gz
 
-bundle: dist/dsteem.js.gz dist/dsteem.d.ts
+bundle: dist/dsmoke.js.gz dist/dsmoke.d.ts
 
 .PHONY: coverage
 coverage: node_modules
@@ -53,12 +53,12 @@ ci-test: node_modules
 	nyc -r lcov -e .ts -i ts-node/register mocha --exit --reporter tap --require ts-node/register test/*.ts
 
 .PHONY: browser-test
-browser-test: dist/dsteem.js
+browser-test: dist/dsmoke.js
 	BUILD_NUMBER="$$(git rev-parse --short HEAD)-$$(date +%s)" \
 		karma start test/_karma-sauce.js
 
 .PHONY: browser-test-local
-browser-test-local: dist/dsteem.js
+browser-test-local: dist/dsmoke.js
 	karma start test/_karma.js
 
 .PHONY: lint
