@@ -54,7 +54,7 @@ Usage
 ```html
 <script src="https://unpkg.com/dsmoke@latest/dist/dsmoke.js"></script>
 <script>
-    var client = new dsmoke.Client('https://api.smoke.io')
+    var client = new dsmoke.Client('https://rpc.smoke.io')
     client.database.getDiscussions('trending', {tag: 'smoking', limit: 1}).then(function(discussions){
         document.body.innerHTML += '<h1>' + discussions[0].title + '</h1>'
         document.body.innerHTML += '<h2>by ' + discussions[0].author + '</h2>'
@@ -72,7 +72,7 @@ With TypeScript:
 ```typescript
 import {Client} from 'dsmoke'
 
-const client = new Client('https://api.smoke.io')
+const client = new Client('https://rpc.smoke.io')
 
 for await (const block of client.blockchain.getBlocks()) {
     console.log(`New block, id: ${ block.block_id }`)
@@ -84,13 +84,13 @@ With JavaScript:
 ```javascript
 var dsmoke = require('dsmoke')
 
-var client = new dsmoke.Client('https://api.smoke.io')
+var client = new dsmoke.Client('https://rpc.smoke.io')
 var key = dsmoke.PrivateKey.fromLogin('username', 'password', 'posting')
 
 client.broadcast.vote({
-    voter: 'username',
+    voter: 'your-username',
     author: 'herbncrypto',
-    permlink: 'this-is-a-test',
+    permlink: 'the-highest-point-of-my-week',
     weight: 10000
 }, key).then(function(result){
    console.log('Included in block: ' + result.block_num)
@@ -104,7 +104,7 @@ With ES2016 (node.js 7+):
 ```javascript
 const {Client} = require('dsmoke')
 
-const client = new Client('https://api.smoke.io')
+const client = new Client('https://rpc.smoke.io')
 
 async function main() {
     const props = await client.database.getChainProperties()
@@ -122,7 +122,7 @@ var dsmoke = require('dsmoke')
 var es = require('event-stream') // npm install event-stream
 var util = require('util')
 
-var client = new dsmoke.Client('https://api.smoke.io')
+var client = new dsmoke.Client('https://rpc.smoke.io')
 
 var stream = client.blockchain.getBlockStream()
 
