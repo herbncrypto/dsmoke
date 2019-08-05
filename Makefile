@@ -28,13 +28,13 @@ dist/%.js: lib
 		--compress "dead_code,collapse_vars,reduce_vars,keep_infinity,drop_console,passes=2" \
 		--output $@ || rm $@
 
-dist/dsteem.js: src/index-browser.ts
+dist/dsmoke.js: src/index-browser.ts
 
-dist/dsteem.d.ts: $(SRC_FILES) node_modules
+dist/dsmoke.d.ts: $(SRC_FILES) node_modules
 	dts-generator --name dsmoke --project . --out dist/dsmoke.d.ts
 	sed -e "s@'dsmoke/index'@'dsmoke'@g" -i '' dist/dsmoke.d.ts
 
-dist/%.gz: dist/dsteem.js
+dist/%.gz: dist/dsmoke.js
 	gzip -9 -f -c $(basename $@) > $(basename $@).gz
 
 bundle: dist/dsmoke.js.gz dist/dsmoke.d.ts
@@ -71,7 +71,7 @@ node_modules:
 docs: $(SRC_FILES) node_modules
 	typedoc --gitRevision master --target ES6 --mode file --out docs src
 	find docs -name "*.html" | xargs sed -i '' 's~$(shell pwd)~.~g'
-	echo "Served at <https://jnordberg.github.io/dsteem/>" > docs/README.md
+	echo "Served at <https://herbncrypto.github.io/dsmoke/>" > docs/README.md
 	touch docs
 
 .PHONY: clean
