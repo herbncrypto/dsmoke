@@ -56,7 +56,7 @@ export const DEFAULT_CHAIN_ID = Buffer.from('00000000000000000000000000000000000
 /**
  * Main steem network address prefix.
  */
-export const DEFAULT_ADDRESS_PREFIX = 'STM'
+export const DEFAULT_ADDRESS_PREFIX = 'SMK'
 
 interface RPCRequest {
     /**
@@ -113,13 +113,13 @@ interface PendingRequest {
  */
 export interface ClientOptions {
     /**
-     * Steem chain id. Defaults to main steem network:
+     * Smoke chain id. Defaults to main steem network:
      * `0000000000000000000000000000000000000000000000000000000000000000`
      */
     chainId?: string
     /**
-     * Steem address prefix. Defaults to main steem network:
-     * `STM`
+     * Smoke address prefix. Defaults to main steem network:
+     * `SMK`
      */
     addressPrefix?: string
     /**
@@ -159,7 +159,7 @@ export class Client {
             opts.agent = options.agent
         }
 
-        opts.addressPrefix = 'STX'
+        opts.addressPrefix = 'SMK'
         opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673'
         return new Client('https://testnet.steem.vc', opts)
     }
